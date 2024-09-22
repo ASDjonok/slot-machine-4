@@ -3,7 +3,7 @@
  */
 class Game {
     static {
-        Game.init().then(() => console.log('Game initialized'));
+        Game.init().then(() => console.log('Game initialized', Game.app.stage.children));
     }
 
     static async init() {

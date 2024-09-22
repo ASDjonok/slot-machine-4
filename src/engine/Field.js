@@ -9,9 +9,26 @@ class Field extends PIXI.Container {
 
     initChildren() {
         this.initRolls();
+        this.initSpinButton();
+        this.initBetController();
     }
 
-    // todo think is this separate method needed
+    initBetController() {
+        this.betController = new BetController();
+        this.betController.x = 200;
+        this.betController.y = 300;
+
+        this.addChild(this.betController);
+    }
+
+    initSpinButton() {
+        this.spinButton = new SpinButton();
+        this.spinButton.x = 200;
+        this.spinButton.y = 200;
+
+        this.addChild(this.spinButton);
+    }
+
     initRolls() {
         this.rolls = [];
         for (let i = 0; i < CONFIG.ROLLS_QUANTITY; i++) {
