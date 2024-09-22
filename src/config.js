@@ -1,0 +1,5 @@
+const CONFIG = {
+    ROLLS_QUANTITY: 3,
+    ROLL_WIDTH: 160,
+    SYMBOL_SIZE: 150,
+}
