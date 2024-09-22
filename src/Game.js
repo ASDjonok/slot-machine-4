@@ -14,6 +14,8 @@ class Game {
         await Game.loadAssets();
 
         Game.symbolsTextures = [
+            PIXI.Texture.from('assets/light_rotate_1.png'),
+            PIXI.Texture.from('assets/light_rotate_2.png'),
             PIXI.Texture.from('assets/rt_object_01.png'),
             PIXI.Texture.from('assets/rt_object_02.png'),
             PIXI.Texture.from('assets/rt_object_03.png'),
@@ -25,6 +27,8 @@ class Game {
         ];
 
         app.stage.addChild(new Field());
+
+        Game.app = app;
     }
 
     /**
@@ -32,6 +36,8 @@ class Game {
      */
     static async loadAssets() {
         await PIXI.Assets.load([
+            'assets/light_rotate_1.png',
+            'assets/light_rotate_2.png',
             'assets/rt_object_01.png',
             'assets/rt_object_02.png',
             'assets/rt_object_03.png',

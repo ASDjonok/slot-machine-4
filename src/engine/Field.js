@@ -13,14 +13,13 @@ class Field extends PIXI.Container {
 
     // todo think is this separate method needed
     initRolls() {
-        const rolls = [];
-        const rollsContainer = new PIXI.Container();
+        this.rolls = [];
         for (let i = 0; i < CONFIG.ROLLS_QUANTITY; i++) {
             const roll = new Roll(i);
             roll.x = i * CONFIG.ROLL_WIDTH;
 
-            rolls.push(roll);
-            rollsContainer.addChild(roll);
+            this.rolls.push(roll);
+            this.addChild(roll);
         }
     }
 }
