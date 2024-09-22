@@ -8,31 +8,19 @@ class Field extends PIXI.Container {
     }
 
     initChildren() {
-        this.slotTextures = [
-            PIXI.Texture.from('assets/rt_object_01.png'),
-            PIXI.Texture.from('assets/rt_object_02.png'),
-            PIXI.Texture.from('assets/rt_object_03.png'),
-            PIXI.Texture.from('assets/rt_object_04.png'),
-            PIXI.Texture.from('assets/rt_object_05.png'),
-            PIXI.Texture.from('assets/rt_object_06.png'),
-            PIXI.Texture.from('assets/rt_object_07.png'),
-            PIXI.Texture.from('assets/rt_object_08.png'),
-        ];
-
         this.initRolls();
     }
 
+    // todo think is this separate method needed
     initRolls() {
         const rolls = [];
         const rollsContainer = new PIXI.Container();
         for (let i = 0; i < CONFIG.ROLLS_QUANTITY; i++) {
-            const roll = new PIXI.Container();
+            const roll = new Roll(i);
             roll.x = i * CONFIG.ROLL_WIDTH;
 
             rolls.push(roll);
             rollsContainer.addChild(roll);
-
-            roll.symbols = [];
         }
     }
 }

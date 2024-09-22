@@ -13,6 +13,17 @@ class Game {
 
         await Game.loadAssets();
 
+        Game.symbolsTextures = [
+            PIXI.Texture.from('assets/rt_object_01.png'),
+            PIXI.Texture.from('assets/rt_object_02.png'),
+            PIXI.Texture.from('assets/rt_object_03.png'),
+            PIXI.Texture.from('assets/rt_object_04.png'),
+            PIXI.Texture.from('assets/rt_object_05.png'),
+            PIXI.Texture.from('assets/rt_object_06.png'),
+            PIXI.Texture.from('assets/rt_object_07.png'),
+            PIXI.Texture.from('assets/rt_object_08.png'),
+        ];
+
         app.stage.addChild(new Field());
     }
 
@@ -33,3 +44,5 @@ class Game {
     }
 
 }
+
+window.Game = Game;
