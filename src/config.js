@@ -8,13 +8,16 @@ const CONFIG = {
     rollWidth: 160,
     rollHorizontalMargin: 30,
 
+    rollsContainerBorderColor: YELLOW_COLOR,
+    rollsContainerBorderMargin: 10,
+
     rowsQuantity: 3,
 
     symbolSize: 150,
     symbolVerticalMargin: 30,
 
-    headerHeight: 100,
-    footerHeight: 100,
+    headerHeight: 75,
+    footerHeight: 150,
 
     spinButton: {
         width: 200,
