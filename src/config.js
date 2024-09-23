@@ -1,5 +1,8 @@
+const BLUE_COLOR = 0x1099bb;
+const YELLOW_COLOR = 0xFBFF4B;
+
 const CONFIG = {
-    backgroundColor: 0x1099bb,
+    backgroundColor: BLUE_COLOR,
 
     rollsQuantity: 3,
     rollWidth: 160,
@@ -16,8 +19,9 @@ const CONFIG = {
         width: 200,
         height: 75,
         radius: 20,
-        color: 0xFBFF4B,
-        fontSize: 42
+        color: YELLOW_COLOR,
+        fontSize: 42,
+        textColor: BLUE_COLOR
     },
 
 //     tmp

@@ -13,7 +13,15 @@ class SpinButton extends PIXI.Container {
     }
 
     initText() {
-        this.text = new PIXI.Text('SPIN', {fontFamily: 'Arial', fontSize: CONFIG.spinButton.fontSize, fill: CONFIG.backgroundColor, align: 'center'});
+        this.text = new PIXI.Text({
+            text: 'SPIN',
+            style: {
+                fontFamily: 'Arial',
+                fontSize: CONFIG.spinButton.fontSize,
+                fill: CONFIG.spinButton.textColor,
+                align: 'center'
+            }
+        });
         this.text.anchor.set(0.5);
 
         this.addChild(this.text);
@@ -24,11 +32,11 @@ class SpinButton extends PIXI.Container {
         this.button.roundRect(-CONFIG.spinButton.width / 2, -CONFIG.spinButton.height / 2, CONFIG.spinButton.width, CONFIG.spinButton.height, CONFIG.spinButton.radius);
         this.button.fill(CONFIG.spinButton.color);
 
-        this.button.interactive = true;
-        this.button.buttonMode = true;
-        this.button.on('pointerdown', this.onButtonDown.bind(this));
-        this.button.on('pointerup', this.onButtonUp.bind(this));
-        this.button.on('pointerupoutside', this.onButtonUp.bind(this));
+        this.eventMode = 'static';
+        this.cursor = 'pointer';
+        this.on('pointerdown', this.onButtonDown.bind(this));
+        this.on('pointerup', this.onButtonUp.bind(this));
+        this.on('pointerupoutside', this.onButtonUp.bind(this));
 
         this.addChild(this.button);
     }
