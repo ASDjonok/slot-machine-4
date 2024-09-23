@@ -17,6 +17,8 @@ const CONFIG = {
     symbolVerticalMargin: 30,
 
     headerHeight: 75,
+    headerContentTop: 20,
+
     footerHeight: 150,
 
     spinButton: {
@@ -41,6 +43,11 @@ const CONFIG = {
         fontSize: 18,
         textColor: BLUE_COLOR,
         deltaX: 45
+    },
+
+    balance: {
+        fontSize: 24,
+        textColor: YELLOW_COLOR,
     },
 
 //     tmp
