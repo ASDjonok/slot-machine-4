@@ -1,6 +1,6 @@
 class Symbol extends PIXI.Sprite {
     constructor(symbolNumber) {
-        super(Game.symbolsTextures[symbolNumber]);
+        super(Symbol.symbolsTextures[symbolNumber]);
     }
 
 }

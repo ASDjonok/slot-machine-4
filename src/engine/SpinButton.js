@@ -44,6 +44,11 @@ class SpinButton extends PIXI.Container {
 
     onButtonDown() {
         this.button.alpha = 0.5;
+
+        Game.api.spin(CONFIG.userId, CONFIG.apiResponse.last_bet).then(responce => {
+            CONFIG.apiResponse = responce;
+            this.emit('spin');
+        });
     }
 
     onButtonUp() {

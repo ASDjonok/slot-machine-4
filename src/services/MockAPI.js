@@ -11,30 +11,33 @@ class MockAPI {
     }
 
     async init(uid) {
-        const user = this.data[uid] || {
-            uid,
-            balance: 1000,
-            last_bet: 0,
-            bets: [10, 20, 50, 100],
-            rolls: this.generateRolls()
-        };
-        this.data[uid] = user;
-        const response = await new Promise(resolve => {
-            setTimeout(() => {
-                resolve(user);
-            }, 1000);
+        return new Promise(resolve => {
+            const user = this.data[uid] || {
+                uid,
+                balance: 1000,
+                last_bet: 0,
+                bets: [10, 20, 50, 100],
+                rolls: this.generateRolls()
+            };
+            this.data[uid] = user;
+            resolve(user);
         });
-        return response;
     }
 
     async spin(uid, bet) {
-        const user = this.data[uid];
-        const isWin = Math.random() > 0.7;
-        const winAmount = isWin ? bet * 2 : 0;
-        user.balance = user.balance - bet + winAmount;
-        user.last_bet = bet;
-        user.rolls = this.generateRolls();
-        return {...user, win: winAmount};
+        return new Promise(resolve => {
+            const user = this.data[uid];
+            const isWin = Math.random() > 0.7;
+            const winAmount = isWin ? bet * 2 : 0;
+            user.balance = user.balance - bet + winAmount;
+            user.last_bet = bet;
+            user.rolls = this.generateRolls();
+            const result = {...user};
+            if (isWin) {
+                result.win = winAmount;
+            }
+            resolve(user);
+        });
     }
 
     generateRolls() {

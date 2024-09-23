@@ -13,12 +13,10 @@ class Game {
 
         this.api = CONFIG.env === 'dev' ? new MockAPI() : new API();
 
-        Promise.all([this.loadAssets(), this.api.init(CONFIG.userId)]).then((values) => {
-            // todo think about such solution
-            CONFIG.apiResponse = values[1];
-            this.initChildren();
-            this.initListeners();
-        });
+        CONFIG.apiResponse = (await Promise.all([this.loadAssets(), this.api.init(CONFIG.userId)]))[1];
+
+        this.initChildren();
+        this.initListeners();
     }
 
     static initListeners() {
@@ -37,23 +35,7 @@ class Game {
     }
 
     static initChildren() {
-        this.initSymbolsTextures();
         this.initField();
-    }
-
-    static initSymbolsTextures() {
-        this.symbolsTextures = [
-            PIXI.Texture.from('assets/light_rotate_1.png'),
-            PIXI.Texture.from('assets/light_rotate_2.png'),
-            PIXI.Texture.from('assets/rt_object_01.png'),
-            PIXI.Texture.from('assets/rt_object_02.png'),
-            PIXI.Texture.from('assets/rt_object_03.png'),
-            PIXI.Texture.from('assets/rt_object_04.png'),
-            PIXI.Texture.from('assets/rt_object_05.png'),
-            PIXI.Texture.from('assets/rt_object_06.png'),
-            PIXI.Texture.from('assets/rt_object_07.png'),
-            PIXI.Texture.from('assets/rt_object_08.png'),
-        ];
     }
 
     static initField() {

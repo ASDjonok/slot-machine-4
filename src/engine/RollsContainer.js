@@ -61,4 +61,10 @@ class RollsContainer extends PIXI.Container {
         return CONFIG.rollsQuantity * CONFIG.rollWidth + (CONFIG.rollsQuantity + 1) * CONFIG.rollHorizontalMargin +
             CONFIG.rollsContainerBorderMargin * 2;
     }
+
+    updateRolls() {
+        this.rolls.forEach(roll => {
+            roll.updateSymbols();
+        });
+    }
 }

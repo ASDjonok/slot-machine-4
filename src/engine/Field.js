@@ -5,6 +5,15 @@ class Field extends PIXI.Container {
         console.log('Field created');
 
         this.initChildren();
+        this.initListeners();
+    }
+
+    initListeners() {
+        this.footer.spinButton.on('spin', () => {
+            console.log('spin');
+            this.rollsContainer.updateRolls();
+            this.header.balance.text = 'BALANCE: ' + CONFIG.apiResponse.balance;
+        });
     }
 
     initChildren() {

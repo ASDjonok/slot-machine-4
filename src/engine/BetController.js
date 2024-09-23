@@ -52,6 +52,7 @@ class BetController extends PIXI.Container {
             if (CONFIG.apiResponse.bets[i] === CONFIG.apiResponse.last_bet
                 || (CONFIG.apiResponse.last_bet === 0 && i === 0)) {
                 buttonContainer.alpha = 1;
+                CONFIG.apiResponse.last_bet = CONFIG.apiResponse.bets[i];
             } else {
                 buttonContainer.alpha = 0.5;
             }
@@ -63,6 +64,7 @@ class BetController extends PIXI.Container {
                     button.alpha = 0.5;
                 });
                 buttonContainer.alpha = 1;
+                CONFIG.apiResponse.last_bet = CONFIG.apiResponse.bets[i];
             });
             buttonContainer.x = this.text.width + i * CONFIG.betButton.deltaX;
             buttonContainer.y = -buttonContainer.height / 2;
