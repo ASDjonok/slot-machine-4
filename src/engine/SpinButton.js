@@ -29,7 +29,8 @@ class SpinButton extends PIXI.Container {
 
     initButton() {
         this.button = new PIXI.Graphics();
-        this.button.roundRect(-CONFIG.spinButton.width / 2, -CONFIG.spinButton.height / 2, CONFIG.spinButton.width, CONFIG.spinButton.height, CONFIG.spinButton.radius);
+        this.button.roundRect(-CONFIG.spinButton.width / 2, -CONFIG.spinButton.height / 2, CONFIG.spinButton.width,
+            CONFIG.spinButton.height, CONFIG.spinButton.radius);
         this.button.fill(CONFIG.spinButton.color);
 
         this.eventMode = 'static';

@@ -13,7 +13,8 @@ const CONFIG = {
     symbolSize: 150,
     symbolVerticalMargin: 30,
 
-    footerHeight: 150,
+    headerHeight: 100,
+    footerHeight: 100,
 
     spinButton: {
         width: 200,
@@ -22,6 +23,21 @@ const CONFIG = {
         color: YELLOW_COLOR,
         fontSize: 42,
         textColor: BLUE_COLOR
+    },
+
+    betController: {
+        textColor: YELLOW_COLOR,
+        fontSize: 24,
+    },
+
+    betButton: {
+        width: 35,
+        height: 35,
+        radius: 10,
+        color: YELLOW_COLOR,
+        fontSize: 18,
+        textColor: BLUE_COLOR,
+        deltaX: 45
     },
 
 //     tmp

@@ -11,9 +11,16 @@ class BetController extends PIXI.Container {
     }
 
     initText() {
-        this.text = new PIXI.Text('BET', { fontFamily: 'Arial', fontSize: 24, fill: 0xffffff, align: 'center' });
-        this.text.x = 0;
-        this.text.y = 0;
+        this.text = new PIXI.Text({
+            text: 'BET:',
+            style: {
+                fontFamily: 'Arial',
+                fontSize: CONFIG.betController.fontSize,
+                fill: CONFIG.betController.textColor,
+                align: 'center'
+            }
+        });
+        this.text.x = 15;
         this.text.anchor.set(0.5);
 
         this.addChild(this.text);
@@ -22,36 +29,43 @@ class BetController extends PIXI.Container {
     initButtons() {
         this.buttons = [];
         for (let i = 0; i < CONFIG.apiResponse.bets.length; i++) {
+            const buttonContainer = new PIXI.Container();
             const button = new PIXI.Graphics();
-            button.beginFill(0x1099bb);
-            button.drawRoundedRect(0, 0, 50, 50, 10);
-            button.endFill();
-            button.interactive = true;
-            button.buttonMode = true;
-            button.on('pointerdown', this.onButtonDown.bind(this));
-            button.on('pointerup', this.onButtonUp.bind(this));
-            button.on('pointerupoutside', this.onButtonUp.bind(this));
-            button.x = i * 60;
-            button.y = 50;
+            button.roundRect(0, 0, CONFIG.betButton.width, CONFIG.betButton.height, CONFIG.betButton.radius);
+            button.fill(CONFIG.betButton.color);
 
-            //add text to button
-            const text = new PIXI.Text(CONFIG.apiResponse.bets[i], { fontFamily: 'Arial', fontSize: 12, fill: 0xffffff, align: 'center' });
-            text.x = 25;
-            text.y = 25;
+            const text = new PIXI.Text(CONFIG.apiResponse.bets[i], {
+                fontFamily: 'Arial',
+                fontSize: CONFIG.betButton.fontSize,
+                fill: CONFIG.betButton.textColor,
+                align: 'center'
+            });
+            text.x = CONFIG.betButton.width / 2;
+            text.y = CONFIG.betButton.height / 2;
             text.anchor.set(0.5);
-            button.addChild(text);
+            buttonContainer.addChild(button);
+            buttonContainer.addChild(text);
 
-            this.addChild(button);
-            this.buttons.push(button);
+            if (CONFIG.apiResponse.bets[i] === CONFIG.apiResponse.last_bet) {
+                buttonContainer.alpha = 1;
+            } else {
+                buttonContainer.alpha = 0.5;
+            }
+
+            buttonContainer.eventMode = 'static';
+            buttonContainer.cursor = 'pointer';
+            buttonContainer.on('pointerdown', () => {
+                this.buttons.forEach((button) => {
+                    button.alpha = 0.5;
+                });
+                buttonContainer.alpha = 1;
+            });
+            buttonContainer.x = this.text.width + i * CONFIG.betButton.deltaX;
+            buttonContainer.y = -buttonContainer.height / 2;
+
+            this.addChild(buttonContainer);
+            this.buttons.push(buttonContainer);
         }
-    }
-
-    onButtonDown() {
-        this.alpha = 0.5;
-    }
-
-    onButtonUp() {
-        this.alpha = 1;
     }
 
 }
