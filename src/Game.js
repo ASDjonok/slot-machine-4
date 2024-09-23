@@ -18,12 +18,15 @@ class Game {
 
     static initListeners() {
         window.addEventListener('resize', () => {
-            // this.app.renderer.resize(window.innerWidth, window.innerHeight);
+            this.onResize();
+        });
+        screen.orientation.addEventListener("change", (event) => {
             this.onResize();
         });
     }
 
     static onResize() {
+        this.app.renderer.resize(window.innerWidth, window.innerHeight);
         this.initFieldScale();
         this.initFieldPosition();
     }
@@ -56,6 +59,7 @@ class Game {
     }
 
     static initFieldScale() {
+        // todo check
         const scale = Math.min(this.app.screen.width / CONFIG.ROLL_WIDTH / CONFIG.ROLLS_QUANTITY,
             this.app.screen.height / CONFIG.SYMBOL_SIZE / CONFIG.ROWS_QUANTITY);
         this.field.scale.set(scale);
