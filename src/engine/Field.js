@@ -33,7 +33,7 @@ class Field extends PIXI.Container {
         this.rolls = [];
         for (let i = 0; i < CONFIG.ROLLS_QUANTITY; i++) {
             const roll = new Roll(i);
-            roll.x = i * CONFIG.ROLL_WIDTH;
+            roll.x = i * (CONFIG.ROLL_WIDTH + CONFIG.ROLL_HORIZONTAL_MARGIN);
 
             this.rolls.push(roll);
             this.addChild(roll);
