@@ -18,6 +18,9 @@ class Roll extends PIXI.Container {
             const symbol = new Symbol(CONFIG.apiResponse.rolls[this.rollNumber][i]);
             symbol.y = i * (CONFIG.symbolSize + CONFIG.symbolVerticalMargin);
 
+            symbol.scale.x = symbol.scale.y = Math.min(CONFIG.symbolSize / symbol.width,
+                CONFIG.symbolSize / symbol.height);
+
             this.symbols.push(symbol);
             this.addChild(symbol);
         }

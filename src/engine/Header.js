@@ -29,7 +29,7 @@ class Header extends PIXI.Container {
             }
         });
         this.balance.anchor.set(0.5);
-        this.balance.x = this.balance.width;
+        this.balance.x = CONFIG.balance.x;
         this.balance.y = CONFIG.headerContentTop;
 
         this.addChild(this.balance);

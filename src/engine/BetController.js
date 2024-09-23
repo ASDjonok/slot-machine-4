@@ -49,7 +49,8 @@ class BetController extends PIXI.Container {
             buttonContainer.addChild(button);
             buttonContainer.addChild(text);
 
-            if (CONFIG.apiResponse.bets[i] === CONFIG.apiResponse.last_bet) {
+            if (CONFIG.apiResponse.bets[i] === CONFIG.apiResponse.last_bet
+                || (CONFIG.apiResponse.last_bet === 0 && i === 0)) {
                 buttonContainer.alpha = 1;
             } else {
                 buttonContainer.alpha = 0.5;

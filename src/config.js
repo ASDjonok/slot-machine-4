@@ -2,6 +2,9 @@ const BLUE_COLOR = 0x1099bb;
 const YELLOW_COLOR = 0xFBFF4B;
 
 const CONFIG = {
+    env: 'dev', // dev, prod
+    userId: 100,
+
     backgroundColor: BLUE_COLOR,
 
     rollsQuantity: 3,
@@ -48,6 +51,7 @@ const CONFIG = {
     balance: {
         fontSize: 24,
         textColor: YELLOW_COLOR,
+        x: 137.5
     },
 
 //     tmp
@@ -59,4 +63,5 @@ const CONFIG = {
         rolls: [[8, 3, 9], [9, 9, 4], [5, 6, 3]]
     },
 
+    symbolsQuantity: 10,
 }

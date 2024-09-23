@@ -11,9 +11,14 @@ class Game {
         await this.app.init({ background: CONFIG.backgroundColor, resizeTo: window });
         document.body.appendChild(this.app.canvas);
 
-        await this.loadAssets();
-        this.initChildren();
-        this.initListeners();
+        this.api = CONFIG.env === 'dev' ? new MockAPI() : new API();
+
+        Promise.all([this.loadAssets(), this.api.init(CONFIG.userId)]).then((values) => {
+            // todo think about such solution
+            CONFIG.apiResponse = values[1];
+            this.initChildren();
+            this.initListeners();
+        });
     }
 
     static initListeners() {
