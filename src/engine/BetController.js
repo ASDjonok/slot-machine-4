@@ -34,11 +34,14 @@ class BetController extends PIXI.Container {
             button.roundRect(0, 0, CONFIG.betButton.width, CONFIG.betButton.height, CONFIG.betButton.radius);
             button.fill(CONFIG.betButton.color);
 
-            const text = new PIXI.Text(CONFIG.apiResponse.bets[i], {
-                fontFamily: 'Arial',
-                fontSize: CONFIG.betButton.fontSize,
-                fill: CONFIG.betButton.textColor,
-                align: 'center'
+            const text = new PIXI.Text({
+                text: CONFIG.apiResponse.bets[i],
+                style: {
+                    fontFamily: 'Arial',
+                    fontSize: CONFIG.betButton.fontSize,
+                    fill: CONFIG.betButton.textColor,
+                    align: 'center'
+                }
             });
             text.x = CONFIG.betButton.width / 2;
             text.y = CONFIG.betButton.height / 2;
