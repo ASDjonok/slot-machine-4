@@ -8,8 +8,12 @@ class Field extends PIXI.Container {
     }
 
     initChildren() {
-        this.initRolls();
-        this.initSpinButton();
+        this.rollsContainer = this.addChild(new RollsContainer());
+
+        this.footer = this.addChild(new Footer());
+        this.footer.y = this.rollsContainer.heightByConfig() + CONFIG.footerHeight / 2 - CONFIG.spinButton.height / 2;
+        this.footer.x = this.rollsContainer.widthByConfig() / 2;
+
         this.initBetController();
     }
 
@@ -21,22 +25,11 @@ class Field extends PIXI.Container {
         this.addChild(this.betController);
     }
 
-    initSpinButton() {
-        this.spinButton = new SpinButton();
-        this.spinButton.x = 200;
-        this.spinButton.y = 200;
-
-        this.addChild(this.spinButton);
+    heightByConfig() {
+        return this.rollsContainer.heightByConfig() + CONFIG.footerHeight;
     }
 
-    initRolls() {
-        this.rolls = [];
-        for (let i = 0; i < CONFIG.ROLLS_QUANTITY; i++) {
-            const roll = new Roll(i);
-            roll.x = i * (CONFIG.ROLL_WIDTH + CONFIG.ROLL_HORIZONTAL_MARGIN);
-
-            this.rolls.push(roll);
-            this.addChild(roll);
-        }
+    widthByConfig() {
+        return this.rollsContainer.widthByConfig();
     }
 }

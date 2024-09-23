@@ -8,7 +8,7 @@ class Game {
 
     static async init() {
         this.app = new PIXI.Application();
-        await this.app.init({ background: '#1099bb', resizeTo: window });
+        await this.app.init({ background: CONFIG.backgroundColor, resizeTo: window });
         document.body.appendChild(this.app.canvas);
 
         await this.loadAssets();
@@ -59,9 +59,8 @@ class Game {
     }
 
     static initFieldScale() {
-        // todo check
-        const scale = Math.min(this.app.screen.width / CONFIG.ROLL_WIDTH / CONFIG.ROLLS_QUANTITY,
-            this.app.screen.height / CONFIG.SYMBOL_SIZE / CONFIG.ROWS_QUANTITY);
+        const scale = Math.min(this.app.screen.width / this.field.widthByConfig(),
+            this.app.screen.height / this.field.heightByConfig());
         this.field.scale.set(scale);
     }
 

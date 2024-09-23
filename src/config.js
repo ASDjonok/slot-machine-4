@@ -1,14 +1,27 @@
 const CONFIG = {
-    ROLLS_QUANTITY: 3,
-    ROLL_WIDTH: 160,
-    ROLL_HORIZONTAL_MARGIN: 30,
+    backgroundColor: 0x1099bb,
 
-    ROWS_QUANTITY: 3,
+    rollsQuantity: 3,
+    rollWidth: 160,
+    rollHorizontalMargin: 30,
 
-    SYMBOL_SIZE: 150,
+    rowsQuantity: 3,
+
+    symbolSize: 150,
+    symbolVerticalMargin: 30,
+
+    footerHeight: 150,
+
+    spinButton: {
+        width: 200,
+        height: 75,
+        radius: 20,
+        color: 0xFBFF4B,
+        fontSize: 42
+    },
 
 //     tmp
-    API_RESPONSE: {
+    apiResponse: {
         uid: 100,
         balance: 970,
         last_bet: 10,

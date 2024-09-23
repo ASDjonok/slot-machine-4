@@ -21,7 +21,7 @@ class BetController extends PIXI.Container {
 
     initButtons() {
         this.buttons = [];
-        for (let i = 0; i < CONFIG.API_RESPONSE.bets.length; i++) {
+        for (let i = 0; i < CONFIG.apiResponse.bets.length; i++) {
             const button = new PIXI.Graphics();
             button.beginFill(0x1099bb);
             button.drawRoundedRect(0, 0, 50, 50, 10);
@@ -35,7 +35,7 @@ class BetController extends PIXI.Container {
             button.y = 50;
 
             //add text to button
-            const text = new PIXI.Text(CONFIG.API_RESPONSE.bets[i], { fontFamily: 'Arial', fontSize: 12, fill: 0xffffff, align: 'center' });
+            const text = new PIXI.Text(CONFIG.apiResponse.bets[i], { fontFamily: 'Arial', fontSize: 12, fill: 0xffffff, align: 'center' });
             text.x = 25;
             text.y = 25;
             text.anchor.set(0.5);

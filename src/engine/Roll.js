@@ -13,14 +13,18 @@ class Roll extends PIXI.Container {
 
     initSymbols() {
         this.symbols = [];
-        for (let i = 0; i < CONFIG.ROWS_QUANTITY /*+ 1*/; i++) {
+        for (let i = 0; i < CONFIG.rowsQuantity; i++) {
             // todo use API
-            const symbol = new Symbol(CONFIG.API_RESPONSE.rolls[this.rollNumber][i]);
-            symbol.y = i * CONFIG.SYMBOL_SIZE;
+            const symbol = new Symbol(CONFIG.apiResponse.rolls[this.rollNumber][i]);
+            symbol.y = i * CONFIG.symbolSize + (i + 1) * CONFIG.symbolVerticalMargin;
 
             this.symbols.push(symbol);
             this.addChild(symbol);
         }
+    }
+
+    heightByConfig() {
+        return this.symbols.length * CONFIG.symbolSize + (this.symbols.length + 1) * CONFIG.symbolVerticalMargin;
     }
 
 }
