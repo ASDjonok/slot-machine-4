@@ -39,16 +39,17 @@ class Field extends PIXI.Container {
     initBlindZoneUnderRolls() {
         this.blindZoneUnderRolls = this.addChild(new PIXI.Graphics()
             .rect(0, 0, CONFIG.blindZoneUnderRolls.width, CONFIG.blindZoneUnderRolls.height)
-            .fill({color: CONFIG.backgroundColor, alpha: 1})
+            .fill(CONFIG.backgroundColor)
         );
         this.blindZoneUnderRolls.y = CONFIG.blindZoneUnderRolls.y;
     }
 
     initBlindZoneAboveRolls() {
-        this.addChild(new PIXI.Graphics()
-            .rect(0, -60, 640, 140)
+        this.blindZoneAboveRolls = this.addChild(new PIXI.Graphics()
+            .rect(0, 0, CONFIG.blindZoneAboveRolls.width, CONFIG.blindZoneAboveRolls.height)
             .fill(CONFIG.backgroundColor)
         );
+        this.blindZoneAboveRolls.y = CONFIG.blindZoneAboveRolls.y;
     }
 
     heightByConfig() {

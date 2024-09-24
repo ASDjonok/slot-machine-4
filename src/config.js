@@ -21,7 +21,7 @@ const CONFIG = {
 
     headerHeight: 75,
     headerWidth: 640,
-    headerContentTop: 40,
+    headerContentTop: 55,
 
     footerHeight: 150,
 
@@ -65,6 +65,12 @@ const CONFIG = {
     },
 
     symbolsQuantity: 10,
+
+    blindZoneAboveRolls: {
+        y: -90,
+        height: 170,
+        width: 640
+    },
 
     blindZoneUnderRolls: {
         y: 600,
