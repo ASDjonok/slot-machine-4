@@ -36,7 +36,7 @@ class MockAPI {
             if (isWin) {
                 result.win = winAmount;
             }
-            resolve(user);
+            resolve(result);
         });
     }
 
