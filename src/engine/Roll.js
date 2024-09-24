@@ -66,6 +66,10 @@ class Roll extends PIXI.Container {
                         this.removeChild(this.symbols.pop());
                         if (this.apiResponseSymbolsCounter) {
                             this.scrollToNextSymbol();
+                        } else {
+                            if (this.rollNumber === CONFIG.rollsQuantity - 1) {
+                                this.emit('roll-end');
+                            }
                         }
                     }
                 })

@@ -55,7 +55,6 @@ const CONFIG = {
         x: 137.5
     },
 
-//     tmp
     apiResponse: {
         uid: 100,
         balance: 970,

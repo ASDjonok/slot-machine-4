@@ -1,4 +1,6 @@
 class SpinButton extends PIXI.Container {
+    #blocked = false;
+
     constructor() {
         super();
 
@@ -36,14 +38,15 @@ class SpinButton extends PIXI.Container {
         this.eventMode = 'static';
         this.cursor = 'pointer';
         this.on('pointerdown', this.onButtonDown.bind(this));
-        this.on('pointerup', this.onButtonUp.bind(this));
-        this.on('pointerupoutside', this.onButtonUp.bind(this));
 
         this.addChild(this.button);
     }
 
     onButtonDown() {
-        this.button.alpha = 0.5;
+        if (this.blocked) {
+            return;
+        }
+        this.blocked = true;
 
         Game.api.spin(CONFIG.userId, CONFIG.apiResponse.last_bet).then(responce => {
             CONFIG.apiResponse = responce;
@@ -51,8 +54,17 @@ class SpinButton extends PIXI.Container {
         });
     }
 
-    onButtonUp() {
-        this.button.alpha = 1;
+    get blocked() {
+        return this.#blocked;
+    }
+
+    set blocked(value) {
+        this.#blocked = value;
+        if (value) {
+            this.button.alpha = 0.5;
+        } else {
+            this.button.alpha = 1;
+        }
     }
 
 }

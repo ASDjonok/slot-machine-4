@@ -10,8 +10,11 @@ class Field extends PIXI.Container {
 
     initListeners() {
         this.footer.spinButton.on('spin', () => {
-            console.log('spin');
             this.rollsContainer.updateRolls();
+        });
+
+        this.rollsContainer.rolls[this.rollsContainer.rolls.length - 1].on('roll-end', () => {
+            this.footer.spinButton.blocked = false;
             this.header.balance.text = 'BALANCE: ' + CONFIG.apiResponse.balance;
         });
     }
