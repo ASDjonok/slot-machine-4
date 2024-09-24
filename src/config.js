@@ -77,7 +77,7 @@ const CONFIG = {
         width: 640
     },
 
-    timeMovingSymbolToNextPosition: 125,
+    timeMovingSymbolToNextPosition: 100,
 
     intermediateSymbolsQuantityForSpinByRoll: [10, 20, 30],
 }
