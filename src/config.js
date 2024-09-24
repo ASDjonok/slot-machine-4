@@ -68,7 +68,11 @@ const CONFIG = {
 
     blindZoneUnderRolls: {
         y: 600,
-        height: 150,
+        height: 175,
         width: 640
-    }
+    },
+
+    timeMovingSymbolToNextPosition: 125,
+
+    intermediateSymbolsQuantityForSpinByRoll: [10, 20, 30],
 }

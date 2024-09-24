@@ -42,13 +42,9 @@ class MockAPI {
 
     generateRolls() {
         return [
-            [this.getRandomSymbolNumber(), this.getRandomSymbolNumber(), this.getRandomSymbolNumber()],
-            [this.getRandomSymbolNumber(), this.getRandomSymbolNumber(), this.getRandomSymbolNumber()],
-            [this.getRandomSymbolNumber(), this.getRandomSymbolNumber(), this.getRandomSymbolNumber()]
+            [Utilities.getRandomSymbolNumber(), Utilities.getRandomSymbolNumber(), Utilities.getRandomSymbolNumber()],
+            [Utilities.getRandomSymbolNumber(), Utilities.getRandomSymbolNumber(), Utilities.getRandomSymbolNumber()],
+            [Utilities.getRandomSymbolNumber(), Utilities.getRandomSymbolNumber(), Utilities.getRandomSymbolNumber()]
         ];
-    }
-
-    getRandomSymbolNumber() {
-        return Math.floor(Math.random() * CONFIG.symbolsQuantity);
     }
 }

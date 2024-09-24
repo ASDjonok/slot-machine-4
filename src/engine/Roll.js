@@ -17,9 +17,10 @@ class Roll extends PIXI.Container {
         }
 
         this.symbols = [];
+        this.symbolsDeltaY = CONFIG.symbolSize + CONFIG.symbolVerticalMargin;
         for (let i = 0; i < CONFIG.rowsQuantity; i++) {
             const symbol = new Symbol(CONFIG.apiResponse.rolls[this.rollNumber][i]);
-            symbol.y = i * (CONFIG.symbolSize + CONFIG.symbolVerticalMargin);
+            symbol.y = i * this.symbolsDeltaY;
 
             symbol.scale.x = symbol.scale.y = Math.min(CONFIG.symbolSize / symbol.width,
                 CONFIG.symbolSize / symbol.height);
@@ -49,20 +50,42 @@ class Roll extends PIXI.Container {
     }
 
     updateSymbols() {
-        /*this.symbols.forEach((symbol, i) => {
-            symbol.texture = Symbol.symbolsTextures[CONFIG.apiResponse.rolls[this.rollNumber][i]];
-        });*/
+        this.intermediateSymbolsForSpinCounter = CONFIG.intermediateSymbolsQuantityForSpinByRoll[this.rollNumber];
+        this.apiResponseSymbolsCounter = CONFIG.rowsQuantity;
+        this.scrollToNextSymbol();
+    }
 
+    scrollToNextSymbol() {
         this.addNewSymbol();
 
-        this.valGraphicsTween = new TWEEN.Tween(this)
-            .to({y: this.y + 1000}, 10000)
-            .start();
+        this.symbols.forEach((symbol, i) => {
+            new TWEEN.Tween(symbol)
+                .to({y: symbol.y + this.symbolsDeltaY}, CONFIG.timeMovingSymbolToNextPosition)
+                .onComplete(() => {
+                    if (i === CONFIG.rowsQuantity - 1) {
+                        this.removeChild(this.symbols.pop());
+                        if (this.apiResponseSymbolsCounter) {
+                            this.scrollToNextSymbol();
+                        }
+                    }
+                })
+                .start();
+        });
     }
 
     addNewSymbol() {
-        const symbol = new Symbol(CONFIG.apiResponse.rolls[this.rollNumber][0]);
-        symbol.y = -CONFIG.symbolSize;
+        let symbol;
+        if (this.intermediateSymbolsForSpinCounter) {
+            this.intermediateSymbolsForSpinCounter--;
+            symbol = new Symbol(Utilities.getRandomSymbolNumber());
+        } else if (this.apiResponseSymbolsCounter) {
+            this.apiResponseSymbolsCounter--;
+            symbol = new Symbol(CONFIG.apiResponse.rolls[this.rollNumber][this.apiResponseSymbolsCounter]);
+        } else {
+            symbol = new Symbol(Utilities.getRandomSymbolNumber());
+        }
+
+        symbol.y = - this.symbolsDeltaY;
         symbol.scale.x = symbol.scale.y = Math.min(CONFIG.symbolSize / symbol.width,
             CONFIG.symbolSize / symbol.height);
         this.symbols.unshift(symbol);
