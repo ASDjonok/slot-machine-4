@@ -52,6 +52,21 @@ class Roll extends PIXI.Container {
         /*this.symbols.forEach((symbol, i) => {
             symbol.texture = Symbol.symbolsTextures[CONFIG.apiResponse.rolls[this.rollNumber][i]];
         });*/
+
+        this.addNewSymbol();
+
+        this.valGraphicsTween = new TWEEN.Tween(this)
+            .to({y: this.y + 1000}, 10000)
+            .start();
+    }
+
+    addNewSymbol() {
+        const symbol = new Symbol(CONFIG.apiResponse.rolls[this.rollNumber][0]);
+        symbol.y = -CONFIG.symbolSize;
+        symbol.scale.x = symbol.scale.y = Math.min(CONFIG.symbolSize / symbol.width,
+            CONFIG.symbolSize / symbol.height);
+        this.symbols.unshift(symbol);
+        this.addChild(symbol);
     }
 
 }

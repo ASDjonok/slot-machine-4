@@ -11,12 +11,18 @@ class Game {
         await this.app.init({ background: CONFIG.backgroundColor, resizeTo: window });
         document.body.appendChild(this.app.canvas);
 
+        this.app.ticker.add(this.tick, this);
+
         this.api = CONFIG.env === 'dev' ? new MockAPI() : new API();
 
         CONFIG.apiResponse = (await Promise.all([this.loadAssets(), this.api.init(CONFIG.userId)]))[1];
 
         this.initChildren();
         this.initListeners();
+    }
+
+    static tick() {
+        TWEEN.update();
     }
 
     static initListeners() {

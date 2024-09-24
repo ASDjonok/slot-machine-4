@@ -18,16 +18,37 @@ class Field extends PIXI.Container {
 
     initChildren() {
         this.rollsContainer = new RollsContainer();
+        this.rollsContainer.y = CONFIG.headerHeight;
+        this.addChild(this.rollsContainer);
+
+        this.initBlindZones();
 
         this.header = this.addChild(new Header());
         this.header.x = this.rollsContainer.widthByConfig() / 2;
 
-        this.rollsContainer.y = CONFIG.headerHeight;
-        this.addChild(this.rollsContainer);
-
         this.footer = this.addChild(new Footer());
         this.footer.y = CONFIG.headerHeight + this.rollsContainer.heightByConfig();
         this.footer.x = this.rollsContainer.widthByConfig() / 2;
+    }
+
+    initBlindZones() {
+        this.initBlindZoneAboveRolls();
+        this.initBlindZoneUnderRolls();
+    }
+
+    initBlindZoneUnderRolls() {
+        this.blindZoneUnderRolls = this.addChild(new PIXI.Graphics()
+            .rect(0, 0, CONFIG.blindZoneUnderRolls.width, CONFIG.blindZoneUnderRolls.height)
+            .fill({color: CONFIG.backgroundColor, alpha: 1})
+        );
+        this.blindZoneUnderRolls.y = CONFIG.blindZoneUnderRolls.y;
+    }
+
+    initBlindZoneAboveRolls() {
+        this.addChild(new PIXI.Graphics()
+            .rect(0, -60, 640, 140)
+            .fill(CONFIG.backgroundColor)
+        );
     }
 
     heightByConfig() {

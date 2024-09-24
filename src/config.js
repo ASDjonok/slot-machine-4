@@ -20,7 +20,8 @@ const CONFIG = {
     symbolVerticalMargin: 30,
 
     headerHeight: 75,
-    headerContentTop: 20,
+    headerWidth: 640,
+    headerContentTop: 40,
 
     footerHeight: 150,
 
@@ -64,4 +65,10 @@ const CONFIG = {
     },
 
     symbolsQuantity: 10,
+
+    blindZoneUnderRolls: {
+        y: 600,
+        height: 150,
+        width: 640
+    }
 }
