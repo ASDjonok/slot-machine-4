@@ -3,3 +3,5 @@ class Utilities {
         return Math.floor(Math.random() * CONFIG.symbolsQuantity);
     }
 }
+
+module.exports = Utilities;
