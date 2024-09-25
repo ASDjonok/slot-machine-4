@@ -1,8 +1,13 @@
-class Field extends PIXI.Container {
+import {Container, Graphics, Text} from "../../libs/dev/pixi.mjs";
+import {CONFIG, YELLOW_COLOR} from "../config.js";
+import {Tween} from "../../libs/dev/tween-25.0.0.esm.js";
+import RollsContainer from "./RollsContainer.js";
+import Footer from "./Footer.js";
+import Header from "./Header.js";
+
+export default class Field extends Container {
     constructor() {
         super();
-
-        console.log('Field created');
 
         this.initChildren();
         this.initListeners();
@@ -23,7 +28,7 @@ class Field extends PIXI.Container {
 
     checkWin() {
         if (CONFIG.apiResponse.win) {
-            this.winText = this.addChild(new PIXI.Text({
+            this.winText = this.addChild(new Text({
                 text: 'Win: ' + CONFIG.apiResponse.win,
                 style: {
                     fontFamily: 'Arial',
@@ -42,14 +47,14 @@ class Field extends PIXI.Container {
 
     animateWinText() {
         this.winText.scale = 0;
-        new TWEEN.Tween(this.winText.scale)
+        new Tween(this.winText.scale)
             .to({x: 2, y: 2}, 250)
             .onComplete(() => {
-                new TWEEN.Tween(this.winText.scale)
+                new Tween(this.winText.scale)
                     .to({x: 1.5, y: 1.5}, 125)
                     .onComplete(() => {
                         setTimeout(() => {
-                            new TWEEN.Tween(this.winText)
+                            new Tween(this.winText)
                                 .to({alpha: 0}, 250)
                                 .onComplete(() => {
                                     this.removeChild(this.winText);
@@ -64,7 +69,7 @@ class Field extends PIXI.Container {
 
     checkGameOver() {
         if (CONFIG.apiResponse.balance < CONFIG.apiResponse.bets[0]) {
-            this.gameOverText = this.addChild(new PIXI.Text({
+            this.gameOverText = this.addChild(new Text({
                 text: 'Game over',
                 style: {
                     fontFamily: 'Arial',
@@ -102,7 +107,7 @@ class Field extends PIXI.Container {
     }
 
     initBlindZoneUnderRolls() {
-        this.blindZoneUnderRolls = this.addChild(new PIXI.Graphics()
+        this.blindZoneUnderRolls = this.addChild(new Graphics()
             .rect(0, 0, CONFIG.blindZoneUnderRolls.width, CONFIG.blindZoneUnderRolls.height)
             .fill(CONFIG.backgroundColor)
         );
@@ -110,7 +115,7 @@ class Field extends PIXI.Container {
     }
 
     initBlindZoneAboveRolls() {
-        this.blindZoneAboveRolls = this.addChild(new PIXI.Graphics()
+        this.blindZoneAboveRolls = this.addChild(new Graphics()
             .rect(0, 0, CONFIG.blindZoneAboveRolls.width, CONFIG.blindZoneAboveRolls.height)
             .fill(CONFIG.backgroundColor)
         );

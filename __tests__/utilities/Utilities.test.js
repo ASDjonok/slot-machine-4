@@ -1,7 +1,7 @@
-const Utilities = require('../../src/utilities/Utilities');
+import Utilities from "../../src/utilities/Utilities.js";
 
 global.CONFIG = {
-    symbolsQuantity: 1,
+    symbolsQuantity: 10,
 };
 
 describe('Utilities', () => {

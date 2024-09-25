@@ -1,3 +1,10 @@
+import Field from "./engine/Field.js";
+import {Application, Assets} from "../libs/dev/pixi.mjs";
+import {CONFIG} from "./config.js";
+import TWEEN from "../libs/dev/tween-25.0.0.esm.js";
+import MockAPI from "./services/MockAPI.js";
+import RealAPI from "./services/RealAPI.js";
+
 /**
  * inspired by https://pixijs.com/8.x/examples/advanced/slots
  */
@@ -7,18 +14,22 @@ class Game {
     }
 
     static async init() {
-        this.app = new PIXI.Application();
+        this.app = new Application();
         await this.app.init({ background: CONFIG.backgroundColor, resizeTo: window });
         document.body.appendChild(this.app.canvas);
 
         this.app.ticker.add(this.tick, this);
 
-        this.api = CONFIG.env === 'dev' ? new MockAPI() : new API();
+        this.api = CONFIG.env === 'dev' ? new MockAPI() : new RealAPI(CONFIG.apiUrl);
 
-        CONFIG.apiResponse = (await Promise.all([this.loadAssets(), this.api.init(CONFIG.userId)]))[1];
+        try {
+            CONFIG.apiResponse = (await Promise.all([this.loadAssets(), this.api.init(CONFIG.userId)]))[1];
 
-        this.initChildren();
-        this.initListeners();
+            this.initChildren();
+            this.initListeners();
+        } catch (error) {
+            console.error('An error occurred:', error);
+        }
     }
 
     static tick() {
@@ -29,7 +40,7 @@ class Game {
         window.addEventListener('resize', () => {
             this.onResize();
         });
-        screen.orientation.addEventListener("change", (event) => {
+        screen.orientation.addEventListener("change", () => {
             this.onResize();
         });
     }
@@ -60,8 +71,7 @@ class Game {
     static initFieldPosition() {
         // todo verticalMargin needed?
         // const verticalMargin = (this.app.screen.height - CONFIG.SYMBOL_SIZE * CONFIG.ROWS_QUANTITY) / 2;
-        const verticalMargin = (this.app.screen.height - this.field.height) / 2;
-        this.field.y = verticalMargin;
+        this.field.y = (this.app.screen.height - this.field.height) / 2;
         // this.field.x = Math.round((this.app.screen.width - CONFIG.ROLL_WIDTH * CONFIG.ROLLS_QUANTITY) / 2);
         this.field.x = Math.round((this.app.screen.width - this.field.width) / 2);
     }
@@ -70,7 +80,7 @@ class Game {
      * assets downloaded from https://pixijs.com/assets/
      */
     static async loadAssets() {
-        await PIXI.Assets.load([
+        await Assets.load([
             'assets/light_rotate_1.png',
             'assets/light_rotate_2.png',
             'assets/rt_object_01.png',

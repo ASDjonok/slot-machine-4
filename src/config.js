@@ -1,9 +1,10 @@
-const BLUE_COLOR = 0x1099bb;
-const YELLOW_COLOR = 0xFBFF4B;
+export const BLUE_COLOR = 0x1099bb;
+export const YELLOW_COLOR = 0xFBFF4B;
 
-const CONFIG = {
-    env: 'dev', // dev, prod
+export const CONFIG = {
+    env: 'prod', // dev, prod
     userId: 100,
+    apiUrl: 'http://localhost:3000',
 
     backgroundColor: BLUE_COLOR,
 

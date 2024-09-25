@@ -1,7 +1,7 @@
-class Utilities {
+import {CONFIG} from '../config.js';
+
+export default class Utilities {
     static getRandomSymbolNumber() {
         return Math.floor(Math.random() * CONFIG.symbolsQuantity);
     }
 }
-
-module.exports = Utilities;

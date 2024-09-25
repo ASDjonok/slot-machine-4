@@ -1,7 +1,7 @@
 /**
  * inspired by https://pixijs.com/8.x/examples/advanced/slots
  */
-class Game {
+export default class Game {
     static {
         Game.init();
     }
