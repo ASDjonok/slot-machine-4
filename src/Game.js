@@ -1,79 +1,108 @@
 import Field from "./engine/Field.js";
 import {Application, Assets} from "../libs/dev/pixi.mjs";
 import {CONFIG} from "./config.js";
-import TWEEN from "../libs/dev/tween-25.0.0.esm.js";
+import {Group} from "../libs/dev/tween-25.0.0.esm.js";
 import MockAPI from "./services/MockAPI.js";
 import RealAPI from "./services/RealAPI.js";
+import Utilities from "./utilities/Utilities.js";
 
 /**
  * inspired by https://pixijs.com/8.x/examples/advanced/slots
  */
 class Game {
     static {
-        this.init().then(() => console.log('Game initialized', this.app.stage.children));
+        Game.init().then(() => console.log('Game initialized', Game.app.stage.children));
     }
 
     static async init() {
-        this.app = new Application();
-        await this.app.init({ background: CONFIG.backgroundColor, resizeTo: window });
-        document.body.appendChild(this.app.canvas);
+        Game.app = new Application();
+        await Game.app.init({ background: CONFIG.backgroundColor, resizeTo: window });
+        document.body.appendChild(Game.app.canvas);
 
-        this.app.ticker.add(this.tick, this);
+        Game.app.ticker.add(Game.tick, this);
 
-        this.api = CONFIG.env === 'dev' ? new MockAPI() : new RealAPI(CONFIG.apiUrl);
+        Game.api = CONFIG.env === 'dev' ? new MockAPI() : new RealAPI(CONFIG.apiUrl);
+
+        Game.tweenGroup = new Group();
+
+        Game.initWindowAndScreenListeners()
 
         try {
-            CONFIG.apiResponse = (await Promise.all([this.loadAssets(), this.api.init(CONFIG.userId)]))[1];
+            CONFIG.apiResponse = (await Promise.all([Game.loadAssets(), Game.api.init(CONFIG.userId)]))[1];
 
-            this.initChildren();
-            this.initListeners();
+            Game.initChildren();
+            Game.initFieldListeners();
         } catch (error) {
             console.error('An error occurred:', error);
+            Game.errorTextObject = Utilities.showAnimatedText('Server error');
         }
     }
 
     static tick() {
-        TWEEN.update();
+        Game.tweenGroup.update();
     }
 
-    static initListeners() {
+    static initWindowAndScreenListeners() {
         window.addEventListener('resize', () => {
-            this.onResize();
+            Game.onResize();
         });
         screen.orientation.addEventListener("change", () => {
-            this.onResize();
+            Game.onResize();
+        });
+    }
+
+    static initFieldListeners() {
+        Game.field.footer.spinButton.on('server-error', (errorTextObject) => {
+            Game.errorTextObject = errorTextObject;
         });
     }
 
     static onResize() {
-        this.app.renderer.resize(window.innerWidth, window.innerHeight);
-        this.initFieldScale();
-        this.initFieldPosition();
+        Game.app.renderer.resize(window.innerWidth, window.innerHeight);
+
+        if (Game.field) {
+        Game.initFieldScale();
+        Game.initFieldPosition();
+        }
+
+        if (Game.errorTextObject) {
+            Game.initErrorTextObjectScale();
+            Game.initErrorTextObjectPosition();
+        }
+    }
+
+    static initErrorTextObjectScale() {
+        if (Game.app.screen.width < Game.errorTextObject.width) {
+            const scale = Game.app.screen.width / Game.errorTextObject.width;
+            Game.errorTextObject.scale.set(scale);
+        }
+    }
+
+    static initErrorTextObjectPosition() {
+        Game.errorTextObject.x = Game.app.screen.width / 2;
+        Game.errorTextObject.y = Game.app.screen.height / 2;
     }
 
     static initChildren() {
-        this.initField();
+        Game.initField();
     }
 
     static initField() {
-        this.field = new Field();
-        this.initFieldScale();
-        this.initFieldPosition();
-        this.app.stage.addChild(this.field);
+        Game.field = new Field();
+        Game.initFieldScale();
+        Game.initFieldPosition();
+        Game.app.stage.addChild(Game.field);
     }
 
     static initFieldScale() {
-        const scale = Math.min(this.app.screen.width / this.field.widthByConfig(),
-            this.app.screen.height / this.field.heightByConfig());
-        this.field.scale.set(scale);
+        const scale = Math.min(Game.app.screen.width / Game.field.widthByConfig(),
+            Game.app.screen.height / Game.field.heightByConfig());
+        Game.field.scale.set(scale);
     }
 
     static initFieldPosition() {
-        // todo verticalMargin needed?
-        // const verticalMargin = (this.app.screen.height - CONFIG.SYMBOL_SIZE * CONFIG.ROWS_QUANTITY) / 2;
-        this.field.y = (this.app.screen.height - this.field.height) / 2;
-        // this.field.x = Math.round((this.app.screen.width - CONFIG.ROLL_WIDTH * CONFIG.ROLLS_QUANTITY) / 2);
-        this.field.x = Math.round((this.app.screen.width - this.field.width) / 2);
+        Game.field.y = (Game.app.screen.height - Game.field.height) / 2;
+        Game.field.x = Math.round((Game.app.screen.width - Game.field.width) / 2);
     }
 
     /**

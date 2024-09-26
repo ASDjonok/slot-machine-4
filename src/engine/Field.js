@@ -4,6 +4,7 @@ import {Tween} from "../../libs/dev/tween-25.0.0.esm.js";
 import RollsContainer from "./RollsContainer.js";
 import Footer from "./Footer.js";
 import Header from "./Header.js";
+import Utilities from "../utilities/Utilities.js";
 
 export default class Field extends Container {
     constructor() {
@@ -28,43 +29,8 @@ export default class Field extends Container {
 
     checkWin() {
         if (CONFIG.apiResponse.win) {
-            this.winText = this.addChild(new Text({
-                text: 'Win: ' + CONFIG.apiResponse.win,
-                style: {
-                    fontFamily: 'Arial',
-                    fontSize: 50,
-                    fill: YELLOW_COLOR,
-                    align: 'center'
-                }
-            }));
-            this.winText.anchor.set(0.5);
-            this.winText.x = this.widthByConfig() / 2;
-            this.winText.y = this.heightByConfig() / 2;
-
-            this.animateWinText();
+            Utilities.showAnimatedText('Win: ' + CONFIG.apiResponse.win, true);
         }
-    }
-
-    animateWinText() {
-        this.winText.scale = 0;
-        new Tween(this.winText.scale)
-            .to({x: 2, y: 2}, 250)
-            .onComplete(() => {
-                new Tween(this.winText.scale)
-                    .to({x: 1.5, y: 1.5}, 125)
-                    .onComplete(() => {
-                        setTimeout(() => {
-                            new Tween(this.winText)
-                                .to({alpha: 0}, 250)
-                                .onComplete(() => {
-                                    this.removeChild(this.winText);
-                                })
-                                .start();
-                        }, 500);
-                    })
-                    .start();
-            })
-            .start();
     }
 
     checkGameOver() {

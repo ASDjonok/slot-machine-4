@@ -2,7 +2,7 @@ export const BLUE_COLOR = 0x1099bb;
 export const YELLOW_COLOR = 0xFBFF4B;
 
 export const CONFIG = {
-    env: 'prod', // dev, prod
+    env: 'dev', // dev, prod
     userId: 100,
     apiUrl: 'http://localhost:3000',
 

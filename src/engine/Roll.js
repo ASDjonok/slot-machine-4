@@ -65,7 +65,7 @@ export default class Roll extends Container {
         this.addNewSymbol();
 
         this.symbols.forEach((symbol, i) => {
-            new Tween(symbol)
+            const symbolPositionDownTween = new Tween(symbol)
                 .to({y: symbol.y + this.symbolsDeltaY}, CONFIG.timeMovingSymbolToNextPosition)
                 .onComplete(() => {
                     if (i === CONFIG.rowsQuantity - 1) {
@@ -80,6 +80,7 @@ export default class Roll extends Container {
                     }
                 })
                 .start();
+            Game.tweenGroup.add(symbolPositionDownTween);
         });
     }
 

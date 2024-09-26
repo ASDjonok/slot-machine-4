@@ -1,5 +1,6 @@
 import {Container, Graphics, Text} from "../../libs/dev/pixi.mjs";
 import {CONFIG} from "../config.js";
+import Utilities from "../utilities/Utilities.js";
 
 export default class SpinButton extends Container {
     #blocked = false;
@@ -45,20 +46,18 @@ export default class SpinButton extends Container {
         this.addChild(this.button);
     }
 
-    onButtonDown() {
+    async onButtonDown() {
         if (this.blocked) {
             return;
         }
         this.blocked = true;
 
         try {
-            Game.api.spin(CONFIG.userId, CONFIG.apiResponse.last_bet).then(response => {
-                CONFIG.apiResponse = response;
-                this.emit('spin');
-            });
+            CONFIG.apiResponse = await Game.api.spin(CONFIG.userId, CONFIG.apiResponse.last_bet);
+            this.emit('spin');
         } catch (error) {
             console.error('An error occurred:', error);
-            this.blocked = false;
+            this.emit('server-error', Utilities.showAnimatedText('Server error'));
         }
     }
 
