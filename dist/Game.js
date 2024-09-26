@@ -1,7 +1,7 @@
 import Field from "./engine/Field.js";
-import {Application, Assets} from "../libs/dev/pixi.mjs";
+import {Application, Assets} from "./libs/pixi.min.mjs";
 import {CONFIG} from "./config.js";
-import {Group} from "../libs/dev/tween-25.0.0.esm.js";
+import {Group} from "./libs/tween-25.0.0.esm.min.js";
 import MockAPI from "./services/MockAPI.js";
 import RealAPI from "./services/RealAPI.js";
 import Utilities from "./utilities/Utilities.js";
@@ -16,7 +16,7 @@ class Game {
 
     static async init() {
         Game.app = new Application();
-        await Game.app.init({ background: CONFIG.backgroundColor, resizeTo: window });
+        await Game.app.init({ background: CONFIG.backgroundColor, resizeTo: window, antialias: true });
         document.body.appendChild(Game.app.canvas);
 
         Game.app.ticker.add(Game.tick, this);
