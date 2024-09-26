@@ -69,6 +69,6 @@ describe('Utilities', () => {
         Utilities.showAnimatedText(textContent, true);
 
         // Перевіряємо, що анімації були додані в tweenGroup
-        expect(Game.tweenGroup.add).toHaveBeenCalled();  // анімація масштабування
+        expect(Game.tweenGroup.add).toHaveBeenCalledTimes(2);  // анімація масштабування
     });
 });
